@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
+//import edu.wpi.first.wpilibj.PWMSparkMax;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   //private final Spark m_rightMotor = new Spark(1);
   private final PWMTalonSRX m_talon = new PWMTalonSRX(1);
   private final PWMVictorSPX m_victor = new PWMVictorSPX(2);
+  //private final PWMSparkMax m_sparkMax = new PWMSparkMax(3);
   
   // Pneumatics
   private final DoubleSolenoid m_solenoid1 = new DoubleSolenoid(0,1);
@@ -158,12 +160,14 @@ public class Robot extends TimedRobot {
       m_leftMotor.set(speed);
       m_talon.set(speed);
       m_victor.set(speed);
+      //m_sparkMax.set(speed);
     }
     else if (m_controller.getBButton())
     {
       m_leftMotor.set(-speed);
       m_talon.set(-speed);
       m_victor.set(-speed);
+      //m_sparkMax.set(-speed);
     }
     else if (m_controller.getBumper(GenericHID.Hand.kRight))
     {
@@ -179,6 +183,7 @@ public class Robot extends TimedRobot {
       m_leftMotor.set(0);
       m_talon.set(0);
       m_victor.set(0);
+      //m_sparkMax.set(0);
     }
     //m_robotDrive.arcadeDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
   }
