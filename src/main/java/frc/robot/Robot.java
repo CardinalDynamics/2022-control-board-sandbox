@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.MotorSafety;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    SmartDashboard.putNumber("Uptime", Timer.getFPGATimestamp());
     compressor.setClosedLoopControl(true);
   }
 
@@ -101,7 +102,12 @@ public class Robot extends TimedRobot {
       case kDefaultAuto:
       default:
         // Put default auto code here
-        break;
+
+        speed = 0.5;
+        m_leftMotor.set(speed);
+        m_talon.set(speed);
+        m_victor.set(speed);
+        //m_sparkMax.set(speed);
     }
   }
 
