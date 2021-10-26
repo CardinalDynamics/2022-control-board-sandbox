@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Spark;
 //import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.MotorSafety;
@@ -26,10 +26,11 @@ import edu.wpi.first.wpilibj.PWMTalonSRX;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot
+{
   // Motor Controllers
   private final Spark m_leftMotor = new Spark(0);
-  //private final Spark m_rightMotor = new Spark(1);
+ //private final Spark m_rightMotor = new Spark(1);
   private final PWMTalonSRX m_talon = new PWMTalonSRX(1);
   private final PWMVictorSPX m_victor = new PWMVictorSPX(2);
   //private final PWMSparkMax m_sparkMax = new PWMSparkMax(3);
@@ -38,19 +39,22 @@ public class Robot extends TimedRobot {
   private final DoubleSolenoid m_solenoid1 = new DoubleSolenoid(0,1);
   private final Compressor compressor = new Compressor(2);
   
-  // Other Things? (Alex help me out)
+  // Autonomous Settings
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
+
+  // Other Things? (Alex help me out)
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   //private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftMotor, m_rightMotor); 
   private final XboxController m_controller = new XboxController(0);
+  private DifferentialDrive m_myRobot;
   private double speed = 0.5;
   
   boolean enabled = compressor.enabled();
   boolean pressureSwitch = compressor.getPressureSwitchValue();
   double current = compressor.getCompressorCurrent();
-  
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -64,6 +68,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Uptime", Timer.getFPGATimestamp());
     compressor.setClosedLoopControl(true);
     compressor.start();
+    m_myRobot  = new DifferentialDrive(m_leftMotor, m_talon);
   }
 
   /**
@@ -103,12 +108,7 @@ public class Robot extends TimedRobot {
       case kDefaultAuto:
       default:
         // Put default auto code here
-
-        speed = 0.5;
-        m_leftMotor.set(speed);
-        m_talon.set(speed);
-        m_victor.set(speed);
-        //m_sparkMax.set(speed);
+        break;
     }
   }
 
@@ -192,6 +192,7 @@ public class Robot extends TimedRobot {
       m_victor.set(0);
       //m_sparkMax.set(0);
     }
+    m_myRobot.tankDrive(m_controller.getX(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
     //m_robotDrive.arcadeDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
   }
 
