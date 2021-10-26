@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     SmartDashboard.putNumber("Uptime", Timer.getFPGATimestamp());
     compressor.setClosedLoopControl(true);
+    compressor.start();
   }
 
   /**
