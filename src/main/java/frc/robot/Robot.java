@@ -71,6 +71,7 @@ public class Robot extends TimedRobot
 
     // Tank drive (left motor, right motor)
     m_myRobot  = new DifferentialDrive(m_talon, m_victor);
+
   }
 
   /**
@@ -197,6 +198,7 @@ public class Robot extends TimedRobot
     }
     */
     m_myRobot.tankDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getY(GenericHID.Hand.kRight));
+
     //m_robotDrive.arcadeDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
   }
 
