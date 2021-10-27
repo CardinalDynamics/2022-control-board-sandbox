@@ -68,7 +68,10 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber("Uptime", Timer.getFPGATimestamp());
     compressor.setClosedLoopControl(true);
     compressor.start();
-    m_myRobot  = new DifferentialDrive(m_leftMotor, m_talon);
+
+    // Tank drive (left motor, right motor)
+    m_myRobot  = new DifferentialDrive(m_talon, m_victor);
+
   }
 
   /**
@@ -142,6 +145,7 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
+    /**
     if (m_controller.getBumperPressed(GenericHID.Hand.kLeft))
     {
       m_solenoid1.set(DoubleSolenoid.Value.kForward);
@@ -192,7 +196,9 @@ public class Robot extends TimedRobot
       m_victor.set(0);
       //m_sparkMax.set(0);
     }
-    m_myRobot.tankDrive(m_controller.getX(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
+    */
+    m_myRobot.tankDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getY(GenericHID.Hand.kRight));
+
     //m_robotDrive.arcadeDrive(m_controller.getY(GenericHID.Hand.kLeft), m_controller.getX(GenericHID.Hand.kLeft));
   }
 
